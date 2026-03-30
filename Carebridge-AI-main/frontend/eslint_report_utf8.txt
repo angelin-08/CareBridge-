@@ -1,0 +1,260 @@
+﻿
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\App.jsx
+   4:27  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          no-unused-vars
+  23:35  error  'error' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      no-unused-vars
+  52:21  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  50 |   useEffect(() => {
+  51 |     const onboarded = localStorage.getItem('carebridge_onboarded');
+> 52 |     if (!onboarded) setIsOnboarded(false);
+     |                     ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  53 |   }, []);
+  54 |
+  55 |   const handleOnboardingComplete = (data) => {  react-hooks/set-state-in-effect
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\BodyMap.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\EmergencyAlert.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\MedicalVault.jsx
+   5:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             no-unused-vars
+  12:12  error  'user' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      no-unused-vars
+  18:20  error  Error: Cannot access variable before it is declared
+
+`fetchRecords` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+  16 |         const unsub = onAuthStateChanged(auth, (u) => {
+  17 |             setUser(u);
+> 18 |             if (u) fetchRecords(u.uid);
+     |                    ^^^^^^^^^^^^ `fetchRecords` accessed before it is declared
+  19 |             else setLoading(false);
+  20 |         });
+  21 |         return unsub;
+
+  22 |     }, []);
+  23 |
+> 24 |     const fetchRecords = async (uid) => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |         try {
+     | ^^^^^^^^^^^^^
+> 26 |             const q = query(collection(db, `users/${uid}/records`), orderBy('timestamp', 'desc'));
+     | ^^^^^^^^^^^^^
+> 27 |             const querySnapshot = await getDocs(q);
+     | ^^^^^^^^^^^^^
+> 28 |             setRecords(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+     | ^^^^^^^^^^^^^
+> 29 |         } catch (err) {
+     | ^^^^^^^^^^^^^
+> 30 |             console.error(err);
+     | ^^^^^^^^^^^^^
+> 31 |         }
+     | ^^^^^^^^^^^^^
+> 32 |         setLoading(false);
+     | ^^^^^^^^^^^^^
+> 33 |     };
+     | ^^^^^^^ `fetchRecords` is declared here
+  34 |
+  35 |     const filteredRecords = records.filter(r => filter === 'all' || r.type === filter);
+  36 |  react-hooks/immutability
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\MedicationReminder.jsx
+   7:10  error  'format' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+   8:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  55:18  error  'err' is defined but never used                                                no-unused-vars
+  64:18  error  'err' is defined but never used                                                no-unused-vars
+  82:18  error  'err' is defined but never used                                                no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\Navbar.jsx
+  4:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\Onboarding.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\ParticleBackground.jsx
+  22:9  warning  Compilation Skipped: Inline `class` declarations are not supported
+
+Move class declarations outside of components/hooks.
+
+  20 |         resize();
+  21 |
+> 22 |         class Particle {
+     |         ^^^^^^^^^^^^^^^^
+> 23 |             constructor() {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |                 this.x = Math.random() * canvas.width;
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 62 |             }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 63 |         }
+     | ^^^^^^^^^^ Inline `class` declarations are not supported
+  64 |
+  65 |         for (let i = 0; i < particleCount; i++) {
+  66 |             particles.push(new Particle());
+
+  react-hooks/unsupported-syntax
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\ReportUpload.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\SymptomAnalysis.jsx
+   2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                 no-unused-vars
+  57:31  error  React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render   react-hooks/rules-of-hooks
+  59:5   error  React Hook "useEffect" is called conditionally. React Hooks must be called in the exact same order in every component render  react-hooks/rules-of-hooks
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\components\VoiceInput.jsx
+    3:10  error    'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        no-unused-vars
+   17:13  error    Error: Cannot access variable before it is declared
+
+`initAudio` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+  15 |     useEffect(() => {
+  16 |         if (isActive) {
+> 17 |             initAudio();
+     |             ^^^^^^^^^ `initAudio` accessed before it is declared
+  18 |         } else {
+  19 |             stopAudio();
+  20 |         }
+
+  22 |     }, [isActive]);
+  23 |
+> 24 |     const initAudio = async () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |         try {
+     | ^^^^^^^^^^^^^
+> 26 |             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+     ΓÇª
+     | ^^^^^^^^^^^^^
+> 39 |         }
+     | ^^^^^^^^^^^^^
+> 40 |     };
+     | ^^^^^^^ `initAudio` is declared here
+  41 |
+  42 |     const stopAudio = () => {
+  43 |         if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         react-hooks/immutability
+   19:13  error    Error: Cannot access variable before it is declared
+
+`stopAudio` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+  17 |             initAudio();
+  18 |         } else {
+> 19 |             stopAudio();
+     |             ^^^^^^^^^ `stopAudio` accessed before it is declared
+  20 |         }
+  21 |         return () => stopAudio();
+  22 |     }, [isActive]);
+
+  40 |     };
+  41 |
+> 42 |     const stopAudio = () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 43 |         if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 44 |         if (audioContextRef.current) audioContextRef.current.close();
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 45 |     };
+     | ^^^^^^^ `stopAudio` is declared here
+  46 |
+  47 |     const draw = () => {
+  48 |         const canvas = canvasRef.current;                                                                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/immutability
+   22:8   warning  React Hook useEffect has a missing dependency: 'initAudio'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         react-hooks/exhaustive-deps
+  123:17  error    Error: Cannot access variable before it is declared
+
+`stopRecording` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+  121 |             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+  122 |             silenceTimerRef.current = setTimeout(() => {
+> 123 |                 stopRecording();
+      |                 ^^^^^^^^^^^^^ `stopRecording` accessed before it is declared
+  124 |             }, 10000);
+  125 |         };
+  126 |
+
+  161 |     };
+  162 |
+> 163 |     const stopRecording = () => {
+      |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 164 |         if (recognitionRef.current) {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 165 |             recognitionRef.current.stop();
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 166 |         }
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 167 |         setIsRecording(false);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 168 |         if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 169 |         if (transcript) {
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 170 |             onTranscriptComplete(transcript, language);
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 171 |         }
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 172 |     };
+      | ^^^^^^^ `stopRecording` is declared here
+  173 |
+  174 |     return (
+  175 |         <motion.div  react-hooks/immutability
+  147:8   warning  React Hook useEffect has missing dependencies: 'fullLangCode' and 'stopRecording'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                react-hooks/exhaustive-deps
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\context\LanguageContext.jsx
+   1:54  error  'useEffect' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                no-unused-vars
+  23:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\pages\Dashboard.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\pages\Home.jsx
+   3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              no-unused-vars
+   7:50  error  'where' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               no-unused-vars
+   7:66  error  'limit' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               no-unused-vars
+   8:10  error  'cn' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  no-unused-vars
+  16:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  14 |     useEffect(() => {
+  15 |         if (stats.checks === 0 && stats.reports === 0) {
+> 16 |             setInsight("Welcome. Begin your health journey by uploading a report or starting a voice checkup.");
+     |             ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  17 |         } else if (lastRecord?.severity === 'high') {
+  18 |             setInsight("Critical attention recommended. Review your latest report regarding " + (lastRecord.title || "unspecified concerns") + ".");
+  19 |         } else {  react-hooks/set-state-in-effect
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\pages\Metrics.jsx
+  5:31  error  'query' is defined but never used. Allowed unused vars must match /^[A-Z_]/u    no-unused-vars
+  5:38  error  'orderBy' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  5:47  error  'limit' is defined but never used. Allowed unused vars must match /^[A-Z_]/u    no-unused-vars
+  7:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u   no-unused-vars
+  8:10  error  'cn' is defined but never used. Allowed unused vars must match /^[A-Z_]/u       no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\pages\Reminders.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\pages\Reports.jsx
+   9:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  47:18  error  'error' is defined but never used                                              no-unused-vars
+  75:18  error  'error' is defined but never used                                              no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\pages\Symptoms.jsx
+  10:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  62:18  error  'error' is defined but never used                                              no-unused-vars
+
+C:\Users\sanjay kumar\OneDrive\Desktop\Carebridge-AI\frontend\src\services\aiService.js
+  86:36  error  'ocrText' is defined but never used   no-unused-vars
+  86:45  error  'language' is defined but never used  no-unused-vars
+
+Γ£û 47 problems (44 errors, 3 warnings)
+
